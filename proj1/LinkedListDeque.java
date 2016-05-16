@@ -20,7 +20,7 @@ public class LinkedListDeque<Item> {
 	/* Creates an empty linked list deque. */
 	public LinkedListDeque() {
 		sentinel = new Node(null, null, null);
-		/* Link sentinel to itself at fornt and back 
+		/* Link sentinel to itself at front and back
 		 * to form a circular linkage. */
 		sentinel.next = sentinel;
 		sentinel.prev = sentinel;
