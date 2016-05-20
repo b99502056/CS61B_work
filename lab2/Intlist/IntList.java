@@ -94,22 +94,23 @@ public class IntList {
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     /* Recursive version. */
+    /**
     public static IntList catenate(IntList A, IntList B) {
         if (A == null) {
             return B;
         }
         return new IntList(A.head, catenate(A.tail, B));
-    }
+    } */
 
     /* Iterative version. */
 
     public static IntList catenate(IntList A, IntList B) {
-        IntList res = new IntList();
+        IntList res = new IntList(A.head, null);
         IntList ptr = res;
+        A = A.tail;
         /* Copy each element of A orderly to a new IntList. */
-        while (A.tail != null) {
-            ptr.head = A.head;
-            ptr.tail = new IntList();
+        while (A != null) {
+            ptr.tail = new IntList(A.head, null);
             ptr = ptr.tail;
             A = A.tail;
         }
