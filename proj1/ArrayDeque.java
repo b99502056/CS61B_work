@@ -37,6 +37,7 @@ public class ArrayDeque<Item> {
             resize(size * RFACTOR);
         }
         items[nextFirst] = i;
+        /* Update nextFirst. */
         nextFirst -= 1;
         if (nextFirst < 0) {
             nextFirst = arraySize - 1;
@@ -50,6 +51,7 @@ public class ArrayDeque<Item> {
             resize(size * RFACTOR);
         }
         items[nextLast] = i;
+        /* Update nextLast. */
         nextLast += 1;
         if (nextLast == arraySize) {
             nextLast = 0;
@@ -101,9 +103,12 @@ public class ArrayDeque<Item> {
         if (nextFirst == arraySize) {
             toBeReturn = items[0];
             items[0] = null;
+            /* Update nextFirst. */
+            nextFirst = 0;
         } else {
             toBeReturn = items[nextFirst + 1];
             items[nextFirst + 1] = null;
+            nextFirst += 1;
         }
         size -= 1;
         return toBeReturn;
@@ -118,11 +123,15 @@ public class ArrayDeque<Item> {
         if (nextLast == 0) {
             toBeReturn = items[arraySize - 1];
             items[arraySize - 1] = null;
+            /* Update nextLast. */
+            nextLast = arraySize - 1;
         } else {
             toBeReturn = items[nextLast - 1];
             items[nextLast - 1] = null;
+            nextLast -= 1;
         }
-            size -= 1;
+
+        size -= 1;
         return toBeReturn;
 	}
 
