@@ -1,4 +1,4 @@
-public class LinkedListDeque<Item> {
+public class LinkedListDeque<Item> implements Deque<Item> {
 
 	/* Create Node class as the building block. */
 	public class Node {
@@ -29,6 +29,7 @@ public class LinkedListDeque<Item> {
 	}
 
 	/* Adds an item to the front of the Deque. */
+	@Override
 	public void addFirst(Item i) {
 		/* Applicable even when the deque is empty. */
 		Node oldFront = sentinel.next;
@@ -43,6 +44,7 @@ public class LinkedListDeque<Item> {
 	}
 
 	/* Adds an item to the back of the Deque. */
+	@Override
 	public void addLast(Item i) {
 		/* Applicable even when the deque is empty. */
 		Node oldBack = sentinel.prev;
@@ -57,6 +59,7 @@ public class LinkedListDeque<Item> {
 	}
 
 	/* Return true if deque is empty, false otherwise. */
+	@Override
 	public boolean isEmpty() {
 		if (sentinel.next == sentinel) {
 			return true;
@@ -64,12 +67,14 @@ public class LinkedListDeque<Item> {
 		return false;
 	}
 	/* Returns the number of items in the deque. */
+	@Override
 	public int size() {
 		return size;
 	}
 
 	/* Prints the items in the deque from first to last,
 	 * separated by a space. */
+	@Override
 	public void printDeque() {
 		/* The current node at the beginning is the node 
 		 * next to sentinel. */
@@ -89,6 +94,7 @@ public class LinkedListDeque<Item> {
 
 	/* Remove and return the item at the front of the deque. 
 	 * If no such item exists, return null. */
+	@Override
 	public Item removeFirst() {
 		if (size == 0) {
 			return null;
@@ -108,6 +114,7 @@ public class LinkedListDeque<Item> {
 
 	/* Remove and return the item at the back of the deque.
 	 * If no such item exists, return null. */
+	@Override
 	public Item removeLast() {
 		if (size == 0) {
 			return null;
@@ -128,6 +135,7 @@ public class LinkedListDeque<Item> {
 	 * 1 is the next item, and so forth. If no such item exists,
 	 * return null. Must not alter the deque! 
 	 * Iteration implementation. */
+	@Override
 	public Item get(int index) {
 		if (index >= size) {
 			return null;

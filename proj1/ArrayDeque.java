@@ -1,4 +1,4 @@
-public class ArrayDeque<Item> {
+public class ArrayDeque<Item> implements Deque<Item> {
 
     private Item[] items;
     private int size;
@@ -32,7 +32,8 @@ public class ArrayDeque<Item> {
     }
 
     /** Adds an item to the front of the Deque. */
-	public void addFirst(Item i) {
+    @Override
+    public void addFirst(Item i) {
         if (size == arraySize) {
             resize(size * RFACTOR);
         }
@@ -46,7 +47,8 @@ public class ArrayDeque<Item> {
 	}
 
     /** Adds an item to the back of the Deque. */
-	public void addLast(Item i) {
+    @Override
+    public void addLast(Item i) {
         if (size == arraySize) {
             resize(size * RFACTOR);
         }
@@ -59,6 +61,7 @@ public class ArrayDeque<Item> {
         size += 1;
 	}
 	/** Return true if deque is empty, false otherwise. */
+	@Override
 	public boolean isEmpty() {
         if (nextFirst == arraySize - 1 && nextLast == 0) {
             return true;
@@ -69,11 +72,14 @@ public class ArrayDeque<Item> {
         }
 	}
 	/** Returns the number of items in the deque. */
+	@Override
 	public int size() {
         return size;
 	}
+
 	/** Prints the items in the deque from first to last,
 	  * separated by a space. */
+	@Override
 	public void printDeque() {
         /* Two cases:
          * 1. The front of the deque is BEFORE the back in the array.
@@ -96,7 +102,8 @@ public class ArrayDeque<Item> {
 	  * If no such item exists, return null. */
     /** Note: The usage factor of arrays of length 16 or more
      * should always be at least 25%. */
-	public Item removeFirst() {
+    @Override
+    public Item removeFirst() {
         /* Beware of the case where the nextFirst goes to
          * the back of the array. */
         Item toBeReturn;
@@ -116,6 +123,7 @@ public class ArrayDeque<Item> {
 
 	/** Remove and return the item at the back of the deque.
 	  * If no such item exists, return null. */
+	@Override
 	public Item removeLast() {
         /* Beware of the case where the nextLast goes to
          * the front of the array. */
@@ -138,6 +146,7 @@ public class ArrayDeque<Item> {
 	/** Gets the item at the given index, where 0 is the front,
 	  * 1 is the next item, and so forth. If no such item exists,
 	  * return null. Must not alter the deque! */
+	@Override
 	public Item get(int index) {
 		if (index < 0) {
             return null;
