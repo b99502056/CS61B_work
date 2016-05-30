@@ -89,7 +89,7 @@ public class Editor extends Application {
 					alignText();
 				 } else if (code == KeyCode.BACK_SPACE) {
 					 /* When the Backspace is typed. */
-					 if (contentToBeDisplayed != "") {
+					 if (!contentToBeDisplayed.isEmpty()) {
 						 contentToBeDisplayed = contentToBeDisplayed.substring(0,
 								 contentToBeDisplayed.length() - 1);
 						 displayText.setText(contentToBeDisplayed);

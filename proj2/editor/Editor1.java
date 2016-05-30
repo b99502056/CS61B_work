@@ -22,7 +22,9 @@ public class Editor1 extends Application {
 
     private LinkedList<Character> buffer;
 
-    public Editor1() { buffer = new LinkedList<Character>(); }
+    public Editor1() {
+        buffer = new LinkedList<Character>();
+    }
 
     private String bufferString() {
         String s = "";
