@@ -20,8 +20,10 @@ public class RenderEngine {
 	private int currentPos;
 
 
-	public RenderEngine(FastLinkedList<Text> tList, final int WINDOW_WIDTH, final int WINDOW_HEIGHT) {
+	public RenderEngine(FastLinkedList<Text> tList, final int WINDOW_WIDTH) {
+		for (Text t : tList) {
 
+		}
 	}
 
 }

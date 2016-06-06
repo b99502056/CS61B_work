@@ -1,6 +1,5 @@
 package editor;
 
-import edu.princeton.cs.algs4.ST;
 import javafx.geometry.VPos;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -15,8 +14,8 @@ import java.util.LinkedList;
  *  Capable of calculating the position of each char on the window
  *  according to its position in the list. */
 public class CharToText {
-	private static final int STARTING_TEXT_POSITION_X = 15;
-	private static final int STARTING_TEXT_POSITION_Y = 10;
+	private static final int STARTING_TEXT_POSITION_X = 5;
+	private static final int STARTING_TEXT_POSITION_Y = 0;
 	private static final int STARTING_FONT_SIZE = 20;
 	private String fontName = "Verdana";
 	private FastLinkedList<Text> tList = new FastLinkedList<>();

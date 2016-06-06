@@ -1,6 +1,10 @@
 package editor;
 
+import org.apache.commons.collections.ArrayStack;
+
 import java.util.Iterator;
+import java.util.ArrayList;
+
 /**
  * Created by LouisCho on 6/3/16.
  */
@@ -8,7 +12,11 @@ public class FastLinkedList<T> implements Iterable<T> {
 	private Node sentinel;
 	private Node currentNode;
 	private int currentPos;
+	// This array list stores nodes according to their corresponding positions
+	// in the linked list.
+	private ArrayList<Node> nodeArray;
 	private int size;
+
 
 	private class Node {
 		public Node prev;
@@ -30,6 +38,7 @@ public class FastLinkedList<T> implements Iterable<T> {
 		// -1 represents the first position of the text. No deletion can take place at this position.
 		currentPos = -1;
 		currentNode = sentinel;
+		nodeArray = new ArrayList<>();
 		size = 0;
 	}
 	// Each 'char' here should be a 'Text' object.
@@ -38,6 +47,7 @@ public class FastLinkedList<T> implements Iterable<T> {
 		Node newCurentNode = new Node(oldCurrentNode, t, oldCurrentNode.next);
 		currentNode = newCurentNode;
 		oldCurrentNode.next = currentNode;
+		nodeArray.add(currentPos, currentNode);
 		currentPos += 1;
 		size += 1;
 	}
@@ -50,6 +60,7 @@ public class FastLinkedList<T> implements Iterable<T> {
 		Node nodeToBeDeleted = currentNode;
 		currentNode = currentNode.prev;
 		currentNode.next = nodeToBeDeleted.next;
+		nodeArray.remove(currentPos);
 		currentPos -= 1;
 		size -= 1;
 	}
@@ -58,8 +69,8 @@ public class FastLinkedList<T> implements Iterable<T> {
 		return currentPos;
 	}
 
-	public void changeCurrentPos(Node n, int p) {
-		currentNode = n;
+	public void changeCurrentPosTo(int p) {
+		currentNode = nodeArray.get(p);
 		currentPos = p;
 	}
 
