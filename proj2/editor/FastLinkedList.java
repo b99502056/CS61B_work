@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class FastLinkedList<T> implements Iterable<T> {
 	private Node sentinel;
 	private Node currentNode;
+	// For the first item, currentPos = 1, and so on.
 	private int currentPos;
 	// This array list stores nodes according to their corresponding positions
 	// in the linked list.
@@ -31,15 +32,7 @@ public class FastLinkedList<T> implements Iterable<T> {
 	}
 
 	public FastLinkedList() {
-
-		// \0 is for empty character.
-		sentinel = new Node(sentinel, null, sentinel);
-
-		// -1 represents the first position of the text. No deletion can take place at this position.
-		currentPos = -1;
-		currentNode = sentinel;
-		nodeArray = new ArrayList<>();
-		size = 0;
+		initialize();
 	}
 	// Each 'char' here should be a 'Text' object.
 	public void addChar(T t) {
@@ -47,14 +40,14 @@ public class FastLinkedList<T> implements Iterable<T> {
 		Node newCurentNode = new Node(oldCurrentNode, t, oldCurrentNode.next);
 		currentNode = newCurentNode;
 		oldCurrentNode.next = currentNode;
-		nodeArray.add(currentPos, currentNode);
 		currentPos += 1;
 		size += 1;
+		nodeArray.add(currentPos, currentNode);
 	}
 
 	public void deleteChar() {
 		// If at the very front of the text, do nothing.
-		if (currentPos == -1) {
+		if (currentPos == 0) {
 			return;
 		}
 		Node nodeToBeDeleted = currentNode;
@@ -65,13 +58,35 @@ public class FastLinkedList<T> implements Iterable<T> {
 		size -= 1;
 	}
 
-	public int currentPos() {
-		return currentPos;
+	private void initialize() {
+		// \0 is for empty character.
+		sentinel = new Node(sentinel, null, sentinel);
+
+		// 0 represents the first position of the text. No deletion can take place at this position.
+		currentPos = 0;
+		currentNode = sentinel;
+		nodeArray = new ArrayList<>();
+		// nodeArray[1] is the first letter of the text file, so we
+		// store null to the 0th position.
+		nodeArray.add(0, null);
+		size = 0;
+	}
+
+	public void clear() {
+		initialize();
+	}
+
+	public T currentChar() {
+		return currentNode.item;
 	}
 
 	public void changeCurrentPosTo(int p) {
-		currentNode = nodeArray.get(p);
-		currentPos = p;
+		if (p == 0) {
+			currentNode = null;
+		} else {
+			currentNode = nodeArray.get(p);
+			currentPos = p;
+		}
 	}
 
 	public int size() {

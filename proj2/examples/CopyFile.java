@@ -24,7 +24,7 @@ public class CopyFile {
             // Check to make sure that the input file exists!
             if (!inputFile.exists()) {
                 System.out.println("Unable to copy because file with name " + inputFilename
-                    + " does not exist");
+                        + " does not exist");
                 return;
             }
             FileReader reader = new FileReader(inputFile);
@@ -40,7 +40,7 @@ public class CopyFile {
             FileWriter writer = new FileWriter(outputFilename);
 
             int intRead = -1;
-            // Keep reading from the file input read() returns -1, which means the end of the file
+            // Keep reading from the file until input read() returns -1, which means the end of the file
             // was reached.
             while ((intRead = bufferedReader.read()) != -1) {
                 // The integer read can be cast to a char, because we're assuming ASCII.

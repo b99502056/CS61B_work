@@ -7,9 +7,11 @@ import java.util.LinkedList;
 /**
  * Created by LouisCho on 6/4/16.
  */
+
+/** Read a text file and output as a LinkedList of chars. */
 public class ReadFile {
 	String path;
-	LinkedList<Character> buffer = new LinkedList<>();
+	FastLinkedList<Character> buffer = new FastLinkedList<>();
 	public ReadFile(String p) {
 		path = p;
 		try {
@@ -23,7 +25,7 @@ public class ReadFile {
 
 			while ((intRead = bufferedReader.read()) != -1) {
 				char charRead = (char) intRead;
-				buffer.addLast(charRead);
+				buffer.addChar(charRead);
 			}
 
 		} catch(FileNotFoundException fileNotFoundException) {
@@ -33,7 +35,7 @@ public class ReadFile {
 		}
 	}
 
-	public LinkedList returnBuffer() {
+	public FastLinkedList returnBuffer() {
 		return buffer;
 	}
 }

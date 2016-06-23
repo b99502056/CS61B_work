@@ -30,7 +30,7 @@ public class ScrollBarExample extends Application {
         int imageMaxHeight = WINDOW_HEIGHT;
 
         // Make an image of Josh.
-        final Image joshImage = new Image("josh1.jpg");
+        final Image joshImage = new Image("examples/josh1.jpg");
         final ImageView joshView = new ImageView(joshImage);
         joshView.setFitHeight(imageWidth);
         joshView.setFitWidth(imageStartingHeight);

@@ -29,7 +29,7 @@ public class ResizeAllen extends Application {
         Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT, Color.WHITE);
 
         // Make an image of Allen.
-        final Image allenImage = new Image("allen2.jpg");
+        final Image allenImage = new Image("examples/allen2.jpg");
         final ImageView allenView = new ImageView(allenImage);
         allenView.setFitHeight(getDimensionInsideMargin(WINDOW_HEIGHT));
         allenView.setFitWidth(getDimensionInsideMargin(WINDOW_WIDTH));
