@@ -22,13 +22,26 @@ public class TestComplexOomage {
     }
 
     public boolean haveNiceHashCodeSpread(Set<ComplexOomage> oomages) {
-        /* TODO: Write a utility function that ensures that the oomages have
+        /* Write a utility function that ensures that the oomages have
          * hashCodes that would distribute them fairly evenly across
-         * buckets To do this, mod each's hashCode by M = 10,
+         * buckets. To do this, mod each's hashCode by M = 10,
          * and ensure that no bucket has fewer than N / 50
          * Oomages and no bucket has more than N / 2.5 Oomages.
          */
-        return false;
+
+        int N = oomages.size();
+        int M = 10;
+        int[] hashTable = new int[M];
+
+        for (ComplexOomage o : oomages) {
+            int bucketNum = (o.hashCode() & 0x7FFFFFFF) % M;
+            hashTable[bucketNum] += 1;
+            if (hashTable[bucketNum] > (N / 2.5)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 
@@ -46,9 +59,21 @@ public class TestComplexOomage {
 
     @Test
     public void testWithDeadlyParams() {
-        /* TODO: Create a Set that shows the flaw in the hashCode function.
+        /* Create a Set that shows the flaw in the hashCode function.
          */
         HashSet<ComplexOomage> oomages = new HashSet<ComplexOomage>();
+        int N = 10000;
+
+
+
+        for (int i = 0; i < N; i += 1) {
+            ArrayList<Integer> params = new ArrayList<Integer>(10);
+            for (int j = 0; i < 10; i += 1) {
+                params.add(StdRandom.uniform(123, 255));
+            }
+
+            oomages.add(new ComplexOomage(params));
+        }
 
         assertTrue(haveNiceHashCodeSpread(oomages));
     }
