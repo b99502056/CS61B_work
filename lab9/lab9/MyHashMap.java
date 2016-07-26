@@ -171,34 +171,22 @@ public class MyHashMap<K, V> implements Map61B<K,V> {
 		throw new UnsupportedOperationException("This method has not been created yet.");
 	}
 
-	private class MapIterator implements Iterator<K> {
-
-
-		public MapIterator() {
-
-		}
-
-		@Override
-		public boolean hasNext() {
-			return true;
-		}
-
-		@Override
-		public K next() {
-			return null;
-		}
-	}
 
 	@Override
 	public Iterator<K> iterator() {
-		return new MyHashMap.MapIterator();
+		return keySet.iterator();
 	}
 
 	public static void main(String[] args) {
 		MyHashMap m = new MyHashMap(4, 2.0);
 
-		m.put("hi" + "0", 0);
+		for (int i = 0; i < 100; i += 1) {
+			m.put("hi" + i, i);
+		}
 
+		for (Object key : m) {
+			System.out.println(key);
+		}
 
 		System.out.println(m.keySet());
 		System.out.println(m.size());
