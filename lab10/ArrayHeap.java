@@ -12,7 +12,8 @@ public class ArrayHeap<T> {
 	 * Inserts an item with the given priority value. This is enqueue, or offer.
 	 */
 	public void insert(T item, double priority) {
-
+		setNode(heapSize() + 1, new Node(item, priority));
+		bubbleUp(heapSize());
 	}
 
 	/**
@@ -20,8 +21,7 @@ public class ArrayHeap<T> {
 	 * from the heap.
 	 */
 	public Node peek() {
-		// TODO Complete this method!
-		return null;
+		return getNode(1);
 	}
 
 	/**
@@ -29,8 +29,11 @@ public class ArrayHeap<T> {
 	 * the heap. This is dequeue, or poll.
 	 */
 	public Node removeMin() {
-		// TODO Complete this method!
-		return null;
+		Node min = getNode(1);
+		swap(1, heapSize());
+		contents.remove(heapSize());
+		bubbleDown(1);
+		return min;
 	}
 
 	/**
@@ -39,7 +42,18 @@ public class ArrayHeap<T> {
 	 * nodes with the same item. Check for item equality with .equals(), not ==
 	 */
 	public void changePriority(T item, double priority) {
-		// TODO Complete this method!
+		for (int i = 1; i < heapSize(); i += 1) {
+			Node n = getNode(i);
+			if(n.item().equals(item)) {
+				if (priority == n.priority()) {
+					return;
+				} else if (priority > n.priority()) {
+					bubbleDown(i);
+				} else {
+					bubbleUp(i);
+				}
+			}
+		}
 	}
 
 	/**
@@ -48,6 +62,16 @@ public class ArrayHeap<T> {
 	@Override
 	public String toString() {
 		return toStringHelper(1, "");
+	}
+
+	/** The size of the heap is less than the size of the list by 1.
+	/* The size of the heap is equal to the largest index of the list.
+	 */
+	private int heapSize() {
+		if (contents.size() == 0) {
+			return 0;
+		}
+		return contents.size() - 1;
 	}
 
 	/* Recursive helper method for toString. */
@@ -82,7 +106,7 @@ public class ArrayHeap<T> {
 	private void setNode(int index, Node n) {
 		// In the case that the ArrayList is not big enough
 		// add null elements until it is the right size
-		while (index + 1 >= contents.size()) {
+		while (index + 1 > contents.size()) {
 			contents.add(null);
 		}
 		contents.set(index, n);
@@ -102,52 +126,94 @@ public class ArrayHeap<T> {
 	 * Returns the index of the node to the left of the node at i.
 	 */
 	private int getLeftOf(int i) {
-		// TODO Complete this method!
-		return 0;
+		return 2 * i;
 	}
 
 	/**
 	 * Returns the index of the node to the right of the node at i.
 	 */
 	private int getRightOf(int i) {
-		// TODO Complete this method!
-		return 0;
+		return 2 * i + 1;
 	}
 
 	/**
 	 * Returns the index of the node that is the parent of the node at i.
 	 */
 	private int getParentOf(int i) {
-		// TODO Complete this method!
-		return 0;
+		if (i == 1) {
+			return i;
+		}
+
+		return i / 2;
 	}
 
 	/**
 	 * Adds the given node as a left child of the node at the given index.
 	 */
 	private void setLeft(int index, Node n) {
-		// TODO Complete this method!
+		setNode(getLeftOf(index), n);
 	}
 
 	/**
 	 * Adds the given node as the right child of the node at the given index.
 	 */
-	private void setRight(int inde, Node n) {
-		// TODO Complete this method!
+	private void setRight(int index, Node n) {
+		setNode(getRightOf(index), n);
 	}
 
 	/**
 	 * Bubbles up the node currently at the given index.
 	 */
 	private void bubbleUp(int index) {
-		// TODO Complete this method!
+		int currentIndex = index;
+		int parentIndex = getParentOf(index);
+		Node currentNode = getNode(index);
+		Node parentNode = getNode(parentIndex);
+
+		while (currentIndex > 1 && currentNode.priority() < parentNode.priority()) {
+			swap(currentIndex, parentIndex);
+			currentIndex = parentIndex;
+			parentIndex = getParentOf(currentIndex);
+			currentNode = getNode(currentIndex);
+			parentNode = getNode(parentIndex);
+		}
 	}
 
 	/**
 	 * Bubbles down the node currently at the given index.
 	 */
-	private void bubbleDown(int inex) {
-		// TODO Complete this method!
+	private void bubbleDown(int index) {
+		int currentIndex = index;
+		int leftIndex = getLeftOf(index);
+		int rightIndex = getRightOf(index);
+		Node currentNode = getNode(currentIndex);
+		Node leftNode = getNode(leftIndex);
+		Node rightNode = getNode(rightIndex);
+		
+
+		while (leftIndex <= heapSize()) {
+
+			// Only left child exist
+			if (rightNode == null) {
+				if (!(currentNode.priority() > leftNode.priority())) {
+					return;
+				}
+				swap(currentIndex, leftIndex);
+				return;
+			}
+			// Both children are present
+			if (!(currentNode.priority() > leftNode.priority()) && !(currentNode.priority() > rightNode.priority())) {
+				return;
+			}
+			int minIndex = min(leftIndex, rightIndex);
+			swap(currentIndex, minIndex);
+			currentIndex = minIndex;
+			leftIndex = getLeftOf(currentIndex);
+			rightIndex = getRightOf(currentIndex);
+			currentNode = getNode(currentIndex);
+			leftNode = getNode(leftIndex);
+			rightNode = getNode(rightIndex);
+		}
 	}
 
 	/**
